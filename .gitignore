@@ -31,7 +31,7 @@ node_modules
 
 
 ### Bower ###
-bower_components
+third_party
 .bower-cache
 .bower-registry
 .bower-tmp
