@@ -84,7 +84,7 @@ gulp.task('scripts', function() {
         // .pipe(concat('application.js'))
         .pipe(gulp.dest('dist/js/'))
         //.pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('dist/js/'))
         .pipe(browserSync.reload({
             stream: true
