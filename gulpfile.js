@@ -4,7 +4,9 @@ var gulp = require('gulp'),
 
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
-var jshint = require('gulp-jshint');
+var jshint = require('gulp-jshint'),
+    jshint_stylish = require('jshint-stylish');
+
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin'),
     cache = require('gulp-cache');
@@ -27,17 +29,17 @@ gulp.task('bs-reload', function() {
 });
 
 gulp.task('templates', function() {
-    var YOUR_LOCALS = {};
+    var LOCAL_SETTINGS = {};
 
     gulp.src('./jade/*.jade')
         .pipe(jade({
-            locals: YOUR_LOCALS
+            locals: LOCAL_SETTINGS
         }))
         .pipe(gulp.dest('./templates/'))
 });
 
 gulp.task('images', function() {
-    gulp.src('src/images/**/*')
+    gulp.src('./images/**/*')
         .pipe(cache(imagemin({
             optimizationLevel: 3,
             progressive: true,
@@ -47,7 +49,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('styles', function() {
-    gulp.src(['src/css/**/*.less'])
+    gulp.src(['./less/**/*.less'])
         .pipe(plumber({
             errorHandler: function(error) {
                 console.log(error.message);
@@ -68,16 +70,18 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src('./js/**/*.js')
         .pipe(plumber({
             errorHandler: function(error) {
                 console.log(error.message);
                 this.emit('end');
             }
         }))
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(concat('main.js'))
+        // .pipe(jshint())
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter(jshint_stylish));
+        .pipe(jshint.reporter('fail'))
+        .pipe(concat('application.js'))
         .pipe(gulp.dest('dist/js/'))
         .pipe(rename({
             suffix: '.min'
@@ -89,8 +93,9 @@ gulp.task('scripts', function() {
         }))
 });
 
-gulp.task('default', ['browser-sync'], function() {
-    gulp.watch("src/css/**/*.less", ['styles']);
-    gulp.watch("src/js/**/*.js", ['scripts']);
+gulp.task('default', ['templates', 'scripts', 'images', 'styles', 'browser-sync'], function() {
+    gulp.watch("./jade/**/*.jade", ['default']);
+    gulp.watch("./css/**/*.less", ['styles']);
+    gulp.watch("./js/**/*.js", ['scripts']);
     gulp.watch("*.html", ['bs-reload']);
 });
