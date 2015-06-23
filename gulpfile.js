@@ -79,7 +79,7 @@ gulp.task('scripts', function() {
         }))
         // .pipe(jshint())
         .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter(jshint_stylish));
+        .pipe(jshint.reporter(jshint_stylish))
         .pipe(jshint.reporter('fail'))
         .pipe(concat('application.js'))
         .pipe(gulp.dest('dist/js/'))
