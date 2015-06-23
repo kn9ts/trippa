@@ -19,7 +19,9 @@ if ($.cookie) $.cookie.defaults = {
     domain: location.href
 };
 
-var app = {
+var Application = function() {};
+
+Application.prototype = {
     // Application Constructor
     initialize: function() {
         this.init();
@@ -28,16 +30,19 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     init: function() {
-        document.addEventListener("DOMContentLoaded", this.deviceready);
+        var self = this;
+        document.addEventListener("DOMContentLoaded", function() {
+            self.deviceready()
+        });
         // Do the following functions 1st
         $(document).ready(function() {
-            app.prepareFunctions('DOMContentLoaded');
+            self.prepareFunctions('DOMContentLoaded');
         });
     },
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'prepareFunctions'
     // function, we must explicity call 'this.prepareFunctions(...);'
-    deviceready: function() {
+    deviceready: function(app) {
         this.doFunctions('DOMContentLoaded_has_loaded');
     },
     prepareFunctions: function(param) {
@@ -48,6 +53,10 @@ var app = {
     doFunctions: function(dom_loaded) {
         // do something (check if user is already signed in,
         // check for internet connection, resize app e.t.c)
+        var test = new Sentences();
+        var sentence = test.getSentence();
+        console.log(sentence);
+        $('#guide-text').html(sentence);
     },
     /**
      * LOCAL STORAGE MANAGEMENT FUNCTION

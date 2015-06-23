@@ -14,26 +14,30 @@ application-engine(description="all the application's JS files fall here")
     script(src="../third_party/moment/min/moment.min.js")
 
     // Your app functions script
+    script(src="../dist/js/sentenses.js")
+    script(src="../dist/js/facebook.auth.js")
     script(src="../dist/js/application.js")
     script.
+        $.support.cors = true;
         //on document ready, as soon as it begins to load
+        var app = new Application();
         app.initialize();
 
         // Google Analytics: change UA-XXXXX-X to be your site's ID.
-        (function(b, o, i, l, e, r) {
-            b.GoogleAnalyticsObject = l;
-            b[l] || (b[l] =
-            function() {
-            (b[l].q = b[l].q || []).push(arguments)
-            });
-            b[l].l = +new Date;
-            e = o.createElement(i);
-            r = o.getElementsByTagName(i)[0];
-            e.src = '//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e, r)
-        }(window, document, 'script', 'ga'));
-        ga('create', 'UA-XXXXX-X');
-        ga('send', 'pageview');
+        //- (function(b, o, i, l, e, r) {
+        //-     b.GoogleAnalyticsObject = l;
+        //-     b[l] || (b[l] =
+        //-     function() {
+        //-     (b[l].q = b[l].q || []).push(arguments)
+        //-     });
+        //-     b[l].l = +new Date;
+        //-     e = o.createElement(i);
+        //-     r = o.getElementsByTagName(i)[0];
+        //-     e.src = '//www.google-analytics.com/analytics.js';
+        //-     r.parentNode.insertBefore(e, r)
+        //- }(window, document, 'script', 'ga'));
+        //- ga('create', 'UA-XXXXX-X');
+        //- ga('send', 'pageview');
 
     //- Get all files to be used with gruntjs
     //- script(src='grunt/gruntconfig_assets.js')

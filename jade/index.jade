@@ -1,17 +1,46 @@
 extends layouts/master
 
 block content
-    //- .container
+    header.pure-menu.pure-menu-horizontal
+        a(href="").pure-menu-heading.pure-menu-link
+            h3 TRIPPA
+        ul.pure-menu-list
+            li
+                a(href="") LeaderBoard
+
     .pure-u-g
-        .pure-u-1-5
-            h3 Result will be listed here
 
-        .pure-u-3-5
+        // Results tab
+        .pure-u-1-6.results.text-center
+            .pure-u-g
+                .pure-u-1.info
+                    h2.wpm 0
+                    small wpm
+
+            .pure-u-g
+                .pure-u-1.info
+                    h2.typos 0
+                    small typos
+
+            .pure-u-g
+                .pure-u-1.info
+                    h2.accuracy 0%
+                    small acc
+
+        .pure-u-2-3
             .pure-u-g
                 .pure-u-1
-                    h4 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    h3#guide-text
+                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
             .pure-u-g
                 .pure-u-1
-                    textarea#typing-field.pure-input-1(type="text" name="typing-field")
+                    textarea#typing-field.pure-input-1(type="text" name="typing-field" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit")
 
-        .pure-u-1-5
+                    strong.note The timer will start when you start typing!
+
+        .pure-u-1-6.timer.text-center
+            .pure-u-g
+                .pure-u-1
+                    h2.time 90
+                    small seconds

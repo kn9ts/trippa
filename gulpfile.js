@@ -81,11 +81,9 @@ gulp.task('scripts', function() {
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter(jshint_stylish))
         .pipe(jshint.reporter('fail'))
-        .pipe(concat('application.js'))
+        // .pipe(concat('application.js'))
         .pipe(gulp.dest('dist/js/'))
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        //.pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js/'))
         .pipe(browserSync.reload({
@@ -95,7 +93,7 @@ gulp.task('scripts', function() {
 
 gulp.task('default', ['templates', 'scripts', 'images', 'styles', 'browser-sync'], function() {
     gulp.watch("./jade/**/*.jade", ['default']);
-    gulp.watch("./css/**/*.less", ['styles']);
-    gulp.watch("./js/**/*.js", ['scripts']);
+    gulp.watch("./less/**/*.less", ['styles', 'bs-reload']);
+    gulp.watch("./js/**/*.js", ['scripts', 'bs-reload']);
     gulp.watch("*.html", ['bs-reload']);
 });

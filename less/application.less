@@ -1,13 +1,53 @@
 @import 'base/variables';
+@import 'base/utilities';
 
-@import 'base/normalize';
-@import 'base/global';
+.bigFont{
+    font-size: 2em;
+    font-family: "Montserrat", sans-serif;
+}
 
-// Import Components
-// @import 'components/header';
+.info{
+    .bigFont;
+    padding: 1em 0;
+    margin: 0;
+    h2{
+        padding: 0;
+        margin: 0;
+    }
+}
 
-// Import Layouts
-// @import 'layouts/home';
+.timer{
+    .bigFont;
+    h2{
+        padding: 0;
+        margin: 0
+    }
+}
 
-// Import Plugins
-// @import 'plugins/plugin';
+#guide-text {
+    color: lighten(color('#333'), 40%);
+}
+
+textarea {
+    width: 100%;
+    height: 250px;
+    border: 3px solid #cccccc;
+    padding: 5px;
+    font-size: 18px;
+    font-family: Ubuntu, Tahoma, sans-serif;
+    background-image: url(bg.gif);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    outline: none;
+    color: lighten(green, 10%);
+}
+
+.flex {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    .col {
+        flex: 1;
+    }
+}
