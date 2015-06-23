@@ -1,0 +1,6 @@
+{
+  "directory": "third_party",
+  "analytics": false,
+  "timeout": 120000,
+  "color": true
+}
