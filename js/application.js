@@ -35,8 +35,8 @@ Application.prototype = {
             self.deviceready()
         });
         // Do the following functions 1st
-        $(document).ready(function() {
-            self.prepareFunctions('DOMContentLoaded');
+        $(function() {
+            self.prepareFunctions();
         });
     },
     // deviceready Event Handler
@@ -49,6 +49,25 @@ Application.prototype = {
         // prepare these functions to do something (event binding, initialise etc...)
         // leave following function as last to run the stuff in the function after app preparations
         // eg. check user sign up or something
+        // document.querySelector('textarea').onkeypress = function checkKey(e) {
+        //     e = e || event;
+        //     var code = e.which || e.keyCode || e.charCode;
+        //     console.log(code);
+        //     var can_do = [8, 46].indexOf(code) > -1: true; false;
+        //     return void(can_do);
+        // }
+        $('#typing-field').keypress(function(event) {
+            var w_Code = window.event;
+            if ([8, 46].indexOf(event.which) > -1) {
+                console.log('backspace', event.which)
+                event.preventDefault();
+                return false;
+            }
+            else{
+                console.log(event.which, w_Code.charCode)
+            }
+            return true;
+        })
     },
     doFunctions: function(dom_loaded) {
         // do something (check if user is already signed in,
@@ -56,7 +75,32 @@ Application.prototype = {
         var test = new Sentences();
         var sentence = test.getSentence();
         console.log(sentence);
-        $('#guide-text').html(sentence);
+
+        // add each letter as a span with it's own id
+        if (sentence && sentence.length > 0) {
+            // get the words for typos issue
+            var words = sentence.split(/\s/g);
+
+            $('#guide-text').empty();
+
+            // loop the words
+            var count = 0;
+            for (var i = 0; i < words.length; i++) {
+                // create it's class
+                var word = words[i];
+
+                //now loop thru the word itsle
+                for (var x = 0; x < word.length; x++) {
+                    $('#guide-text').append('<span data-word="' + word + '" data-word-pos="' + x + '" id="pos-' + count + '">' + word[x] + "</span>");
+                    count++;
+                    // console.log(sentence[x]);
+                }
+
+                // add a space
+                $('#guide-text').append('<span data-word="space" id="pos-' + count + '"> </span>');
+                count++;
+            }
+        }
     },
     /**
      * LOCAL STORAGE MANAGEMENT FUNCTION
