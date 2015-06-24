@@ -1,14 +1,82 @@
 var Sentences = function() {
+    this._meta = []
     this.listOfSongs = [];
+    this.sentence = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 };
 
 Sentences.prototype.getSentence = function() {
     var sentences = this.sentencesArray.sentenses;
     var random = Math.floor(Math.random() * sentences.length)
     console.log(random)
-    return sentences[random];
+    this.sentence = sentences[random]
+    return this;
 }
 
+Sentences.prototype.getMetaData = function(sentence) {
+    sentence = sentence || this.sentence;
+    // add each letter as a span with it's own id
+    if (sentence && sentence.length > 0) {
+        // get the words for typos issue
+        var words = sentence.split(/\s/g);
+
+        // loop the words
+        var count = 0;
+        for (var i = 0; i < words.length; i++) {
+            // create it's class
+            var word = words[i];
+
+            //now loop thru the word itsle
+            for (var x = 0; x < word.length; x++) {
+                // console.log(sentence[x]);
+                this._meta.push({
+                    word: word,
+                    letter: word[x],
+                    letter_position: count,
+                    dom_position: 'position-' + count,
+                    isLetter: true
+                });
+                count++;
+            }
+
+            this._meta.push({
+                word: "space",
+                letter: " ",
+                letter_position: count,
+                dom_position: 'position-' + count,
+                isLetter: false
+            });
+            count++;
+        }
+
+        // Remove the last value, it's also a space
+        this._meta.pop();
+    }
+
+    return this
+}
+
+Sentences.prototype.populateToDOM = function(elem) {
+    this.elem = elem || document;
+
+    if (this._meta.length > 0) {
+        // Empty the guide text
+        $(elem).empty();
+
+        for (var i = 0; i < this._meta.length; i++) {
+            var letter = this._meta[i];
+            if (letter.isLetter) {
+                $(elem).append('<span data-word="' + letter.word + '" data-letter-position="' + letter.letter_position + '" id="' + letter.dom_position + '">' + letter.letter + "</span>");
+            }
+            // If it's a space value
+            else {
+                // add the spaces space
+                $(elem).append('<span data-word="space" data-letter-position="0" id="' + letter.dom_position + '"> </span>');
+            }
+        }
+    }
+
+    return this;
+}
 
 Sentences.prototype.sentencesArray = {
     "sentenses": [
@@ -18,7 +86,7 @@ Sentences.prototype.sentencesArray = {
 
         "Mediocrity is a place where people often get stuck and do not know how to escape. This is a mindset that can only be changed with mind renewal. In order to move from this place, one must think differently, get rid of what hasn't worked, connect with those who can give sound direction, design a plan of action and put that plan in motion. Life is way too short to settle for anything less than what we truly want. The only way to embrace your potential is to stop settling. We are only limiting ourselves and wasting our precious time. The moment we begin to settle in the most important roles of our lives is the moment we begin to die a slow death. Excellence is a place where people who refuse to settle for mediocrity live; it is where one reaps from all the hard work sown. It is a journey of continuous progression toward the goals in your life.",
 
-        "When we were young, we wanted nothing more than to be a 'big kid.' We wanted all of the perks that came along with growing up, like being able to do whatever we pleased, not being told what to do, reaching that long-awaited age when we could finally taste alcohol freely, etc. We wanted to grow up faster because we had our eyes on the prize. Little did we know, along with growing up came responsibility - a sh*t ton of it - that we would rather not be burdened with, emotional turmoil from the turnover of relationships, loss that we finally understand, jobs that we hate, etc. As young-minded, naïve youths, we barely experienced an ounce of negativity more significant than Mama getting angry, or our older siblings excluding us from their exclusive 'Ace of Base Club' (this was a devastating reality for me).",
+        "When we were young, we wanted nothing more than to be a 'big kid.' We wanted all of the perks that came along with growing up, like being able to do whatever we pleased, not being told what to do, reaching that long-awaited age when we could finally taste alcohol freely, etc. We wanted to grow up faster because we had our eyes on the prize. Little did we know, along with growing up came responsibility - a sh*t ton of it - that we would rather not be burdened with, emotional turmoil from the turnover of relationships, loss that we finally understand, jobs that we hate, etc. As young-minded, naive youths, we barely experienced an ounce of negativity more significant than Mama getting angry, or our older siblings excluding us from their exclusive 'Ace of Base Club' (this was a devastating reality for me).",
 
         "Many of us don' t like to say no to a coworker or a boss — for instance, when the boss asks for a tighter deadline, or a team member needs a longer one — because we' re worried about damaging the relationship.That' s because it often feels synonymous with confrontation. And whether you are conflict - averse or conflict - ready, your counterpart may not always handle hearing no the way you' d hoped. Some counterparts will totry to\" yes the no, \"even when you' re hoping for minimal friction, because they have learned early on not to take no for an answer and feel like pushovers if they do. Or he might get angry, push back, or go silent, because that' s how he always handles hearing no. There may also be something about the circumstances that makes it particularly difficult to accept your no. For example, someone who might be able to deal with a no privately could be embarrassed to hear it in front of others and may want you to back down so she can save face. ",
 
