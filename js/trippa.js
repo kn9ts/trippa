@@ -10,5 +10,11 @@ Trippa.prototype = {
         // WPM calculation
         // (((words_typed / 5) * 60) / time_taken)
         return ((words_typed.length / 5) * 60) / parseInt(time_taken);
+    },
+    calculateAccuracy: function() {
+        // body...
+    },
+    getTypos: function() {
+        // body...
     }
 }

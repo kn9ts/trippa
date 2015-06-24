@@ -1,21 +1,7 @@
-/**
- *
- * @Author - Eugene Mutai
- * @Twitter - JheneKnights
- * @Email - eugenemutai@gmail.com
- *
- * Date: 23/06/15
- * Time: 12:45 PM
- * Description: All your applications business logic should fall in here
- *
- * Copyright (C) 2014
- * @Version -
- */
-
 var Application = function() {};
 
 Application.prototype = {
-    _meta: [],
+    Sentence: null,
     // Application Constructor
     // Bind Event Listeners
     // Bind any events that are required on startup. Common events are:
@@ -25,6 +11,7 @@ Application.prototype = {
         document.addEventListener("DOMContentLoaded", function() {
             self.deviceReady();
         });
+        return this;
     },
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'prepareFunctions'
@@ -35,7 +22,8 @@ Application.prototype = {
         var test = new Sentences();
         var sentence = test.getSentence();
         // console.log(sentence);
-        sentence.getMetaData().populateToDOM('#guide-text');
+        this.Sentence = sentence.getMetaData().populateToDOM('#guide-text');
+        return this.Sentence;
     },
     /**
      * LOCAL STORAGE MANAGEMENT FUNCTION
