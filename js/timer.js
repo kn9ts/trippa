@@ -2,6 +2,7 @@ var Timer = function(elem) {
     this.time = 60;
     this.timeAllocation = 60;
     this.elem = elem || document;
+    this.isActive = false;
 
     if (this.elem !== document) {
         document.querySelector(this.elem).textContent = this.time;
@@ -20,12 +21,14 @@ Timer.prototype = {
 
             // If not keep subtracting
             self.time--;
+            self.isActive = true;
             document.querySelector(self.elem).textContent = self.time;
 
             var event = new CustomEvent("countdown", {
                 detail: {
                     message: "Counting down, subtracted one",
                     time: self.time,
+                    timer: self
                 },
                 bubbles: true,
                 cancelable: true
@@ -34,7 +37,8 @@ Timer.prototype = {
             // Now, we need to dispatch self event on a specific element
             document.querySelector(self.elem).dispatchEvent(event);
         }, 1000);
-        // return countDown;
+
+        return this;
     },
     isTimeOver: function() {
         if (this.time === 0) {
@@ -49,5 +53,11 @@ Timer.prototype = {
     },
     getValue: function() {
         return this.time;
+    },
+    then: function(callback) {
+        if (callback) {
+            callback(this);
+        }
+        return this;
     }
 }

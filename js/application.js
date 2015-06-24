@@ -17,43 +17,19 @@ var Application = function() {};
 Application.prototype = {
     _meta: [],
     // Application Constructor
-    initialize: function() {
-        this.init();
-    },
     // Bind Event Listeners
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    init: function() {
+    initialize: function() {
         var self = this;
         document.addEventListener("DOMContentLoaded", function() {
-            self.deviceready()
-        });
-        // Do the following functions 1st
-        $(function() {
-            self.prepareFunctions();
+            self.deviceReady();
         });
     },
     // deviceready Event Handler
     // The scope of 'this' is the event. In order to call the 'prepareFunctions'
     // function, we must explicity call 'this.prepareFunctions(...);'
-    deviceready: function(app) {
-        this.doFunctions('DOMContentLoaded_has_loaded');
-    },
-    prepareFunctions: function(param) {
-        // prepare these functions to do something (event binding, initialise etc...)
-        // leave following function as last to run the stuff in the function after app preparations
-        // eg. check user sign up or something
-        var countdown = new Timer('#time');
-        countdown.startCountDown();
-
-        document.addEventListener('countdown', function(event) {
-            if(event.detail.time === 0) {
-                clearInterval(countdown.countingDown)
-            }
-            console.log(event.detail.time)
-        });
-    },
-    doFunctions: function(dom_loaded) {
+    deviceReady: function(app) {
         // do something (check if user is already signed in,
         // check for internet connection, resize app e.t.c)
         var test = new Sentences();

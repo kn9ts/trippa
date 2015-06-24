@@ -40,8 +40,13 @@ block content
                     span.label.green-bg.white.padding-xs.space Note:&nbsp;
                         strong The timer will start when you start typing!
 
-        .pure-u-1-6.timer.text-center
-            .pure-u-g
+        .pure-u-1-6.text-center
+            .pure-u-g.timer
                 .pure-u-1
-                    h2#time 0
+                    h2#time 60
                     small seconds
+
+            .pure-u-g
+                 .pure-u-1
+                    button#reset-time.pure-button.button-warning.white reset
+
