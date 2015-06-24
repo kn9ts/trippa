@@ -45,67 +45,67 @@ a {
 }
 
 .red {
-    color: @color4;
+    color: @red;
 }
 
 .orange {
-    color: @color1;
+    color: @orange;
 }
 
 .green {
-    color: @color6;
+    color: @green;
 }
 
 .yellow {
-    color: @color8;
+    color: @yellow;
 }
 
 .blue {
-    color: @color7;
+    color: @blue;
 }
 
 .white {
-    color: @color0;
+    color: @white;
 }
 
 .grey {
-    color: @color5;
+    color: @grey;
 }
 
 .red-bg {
-    background: @color4;
+    background: @red;
 }
 
 .orange-bg {
-    background: @color1;
+    background: @orange;
 }
 
 .green-bg {
-    background: @color6;
+    background: @green;
 }
 
 .yellow-bg {
-    background: @color8;
+    background: @yellow;
 }
 
 .blue-bg {
-    background: @color7;
+    background: @blue;
 }
 
 .white-bg {
-    background: @color0;
+    background: @white;
     border-radius: 50%;
-    border: 1px solid @color0;
+    border: 1px solid @white;
     vertical-align: middle;
 }
 
 .grey-bg {
-    background: @color5;
+    background: @grey;
     color: #999999;
 }
 
 .pale-grey-bg {
-    background: @color2;
+    background: @light-grey;
 }
 
 .sliding-panel {
@@ -113,7 +113,7 @@ a {
     -ms-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
-    background-color: @color3;
+    background-color: @black;
     box-shadow: 4px -4px 4px rgba(0, 0, 0, 0.2);
     left: 0;
     margin-left: -150%;
@@ -145,7 +145,7 @@ a {
 }
 
 .overlay {
-    background: @color3;
+    background: @black;
     display: none;
     left: 0;
     opacity: .7;
@@ -205,6 +205,14 @@ a {
     margin: 2% 0;
 }
 
+.margin-sm {
+    margin: 1% 0;
+}
+
+.margin-xs {
+    margin: .5% 0;
+}
+
 .auto-margin {
     margin: auto;
 }
@@ -253,7 +261,7 @@ a {
 }
 
 .border-xs {
-    border-color: @color2;
+    border-color: @light-grey;
     border-style: solid;
     border-width: 1px;
 }
@@ -305,21 +313,29 @@ a {
 }
 
 .button-success {
-    background: @color6;
+    background: @green;
     /* this is a green */
 }
 
 .button-error {
-    background: @color4;
+    background: @red;
     /* this is a maroon */
 }
 
 .button-warning {
-    background: @color1;
+    background: @orange;
     /* this is an orange */
 }
 
 .button-dull {
-    background: @color5;
+    background: @grey;
     /* this is a light blue */
+}
+
+.push-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
 }
