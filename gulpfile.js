@@ -35,7 +35,7 @@ gulp.task('templates', function() {
         .pipe(jade({
             locals: LOCAL_SETTINGS
         }))
-        .pipe(gulp.dest('./templates/'))
+        .pipe(gulp.dest('./'))
 });
 
 gulp.task('images', function() {

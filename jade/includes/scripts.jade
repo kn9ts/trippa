@@ -2,25 +2,26 @@
 application-engine(description="all the application's JS files fall here")
 
     // jQuery library
-    script(src="../third_party/jquery/dist/jquery.min.js")
-    script(src="../third_party/underscore/underscore-min.js")
+    script(src="./third_party/jquery/dist/jquery.min.js")
+    script(src="./third_party/underscore/underscore-min.js")
+    script(src="./third_party/firebase/firebase-debug.js")
 
     //- Angularjs MVC, MVVM framework
-    //- script(src="../third_party/angularjs/angular.min.js")
+    //- script(src="./third_party/angularjs/angular.min.js")
 
     // For cookies and touch support
-    script(src="../third_party/jquery-cookie/jquery.cookie.js")
+    script(src="./third_party/jquery-cookie/jquery.cookie.js")
 
     // Time management
-    script(src="../third_party/moment/min/moment.min.js")
+    script(src="./third_party/moment/min/moment.min.js")
 
     // Your app functions script
-    script(src="../dist/js/trippa.js")
-    script(src="../dist/js/timer.js")
-    script(src="../dist/js/sentences.js")
-    script(src="../dist/js/facebook.auth.js")
-    script(src="../dist/js/application.js")
-    script(src="../dist/js/apply.js")
+    script(src="./dist/js/trippa.js")
+    script(src="./dist/js/timer.js")
+    script(src="./dist/js/sentences.js")
+    script(src="./dist/js/facebook.auth.js")
+    script(src="./dist/js/application.js")
+    script(src="./dist/js/apply.js")
     script.
         // enable CORS support
         $.support.cors = true;
