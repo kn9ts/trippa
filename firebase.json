@@ -1,0 +1,9 @@
+{
+  "firebase": "trippa",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
