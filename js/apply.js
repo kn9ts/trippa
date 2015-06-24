@@ -15,16 +15,18 @@ var appInstance = app.initialize();
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 20);
+    var countdown = new Timer('#time', 60);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');
     var accuracy = $('#accuracy');
+    var reset_time = $('#reset-time');
 
     textArea.keydown(function(ev) {
         var el = this;
         if (collectTypingData.length === 0 && !countdown.isActive) {
-            console.log("========== STARTED ===========", ev.which)
+            console.log("========== STARTED ===========", ev.which);
+            reset_time.toggleClass('button-error');
             countdown.startCountDown();
         }
     })
@@ -62,7 +64,26 @@ $(function() {
             time: countdown.getValue()
         });
         // console.log(event.detail.time);
-
     });
 
+    reset_time.on('click', function(ev) {
+        // Reset results back to zero
+        $('.showing').text(0);
+
+        // clear the text area
+        textArea.val('');
+
+        // stop the count down time
+        clearInterval(countdown.countingDown);
+
+        // reset the timer
+        countdown.resetTimer();
+
+        // dim the button and re-enable the textarea if it was disabled
+        $(this).toggleClass('button-error');
+        textArea.attr('disabled', false);
+
+        // Empty the data that was being collected
+        collectTypingData = [];
+    });
 })

@@ -3,7 +3,7 @@ extends layouts/master
 block content
     header.pure-menu.pure-menu-horizontal.red-bg
         a(href="").pure-menu-heading.pure-menu-link
-            h2.no-padding.no-margin.white TRIPPA
+            h2.no-padding.margin-xs.white TRIPPA
         ul.pure-menu-list
             li
                 a(href="").white LeaderBoard
@@ -14,17 +14,18 @@ block content
         .pure-u-1-6.results.text-center
             .pure-u-g
                 .pure-u-1.info
-                    h2#wpm 0
+                    h2.showing#wpm 0
                     small wpm
 
             .pure-u-g
                 .pure-u-1.info
-                    h2#typos 0
+                    h2.showing#typos 0
                     small typos
 
             .pure-u-g
                 .pure-u-1.info
-                    h2#accuracy 0%
+                    h2.showing#accuracy 0
+                        span %
                     small acc
 
         .pure-u-2-3
@@ -43,10 +44,10 @@ block content
         .pure-u-1-6.text-center
             .pure-u-g.timer
                 .pure-u-1
-                    h2#time 60
+                    h2.showing#time 60
                     small seconds
 
             .pure-u-g
                  .pure-u-1
-                    button#reset-time.pure-button.button-warning.white reset
+                    button#reset-time.pure-button.white reset
 

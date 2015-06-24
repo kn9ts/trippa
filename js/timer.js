@@ -49,6 +49,8 @@ Timer.prototype = {
     },
     resetTimer: function() {
         this.time = this.timeAllocation;
+        this.isActive = false;
+        document.querySelector(this.elem).textContent = this.time;
         return this;
     },
     getValue: function() {

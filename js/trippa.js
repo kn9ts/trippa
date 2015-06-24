@@ -25,14 +25,17 @@ Trippa.prototype = {
         return Math.round(((slicedSentence.length - count) / slicedSentence.length) * 100) + '%';
     },
     calculateTypos: function(words_typed, Sentence) {
-        var slicedSentence = Sentence.sentence.substr(0, words_typed.length);
+        var words = Sentence.sentence.split(/\s/g);
+        words = words.slice(0, words_typed.split(/\s/g).length);
 
-        var words = slicedSentence.split(/\s|\n/g);
+        // Turn it into an array
+        // Replace all new lines and tabs with spaces
+        words_typed = words_typed.replace(/(\n|\t)/, ' ').split(/\s/g);
 
         var count = 0;
-        for (var x = 0; x < words.length; x++) {
-            if (words_typed.indexOf(words[x]) == -1) {
-                console.log(words[x])
+        for (var x = 0; x < words_typed.length; x++) {
+            if (words.indexOf(words_typed[x]) == -1) {
+                console.log(words[x]);
                 count++;
             }
         }
