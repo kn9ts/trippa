@@ -12,10 +12,14 @@ if (jQuery && $.cookie) {
 //on document ready, as soon as it begins to load
 var app = new Application();
 var appInstance = app.initialize();
+var myFirebase = new Firebase("https://trippa.firebaseio.com/");
+var Users = myFirebase.child("users");
+var Leaderboard = myFirebase.child("leaderboard");
+var DATA = {};
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 60);
+    var countdown = new Timer('#time', 6);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');
@@ -57,6 +61,11 @@ $(function() {
             var Typos = trippa.calculateTypos(words_typed, Sentence);
             console.log(Typos);
             typos.html(Typos);
+
+            // Collect this data, to be stored in Firebase
+            DATA.accuracy = parseInt(Accuracy);
+            DATA.WPM = WPM;
+            DATA.typos = Typos;
         }
 
         collectTypingData.push({
@@ -86,4 +95,5 @@ $(function() {
         // Empty the data that was being collected
         collectTypingData = [];
     });
+
 })

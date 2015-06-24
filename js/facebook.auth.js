@@ -194,8 +194,19 @@ Facebook.prototype.getUserInfo = function() {
             //store this data
             LS.runQuery('TrippaUser', {
                 content: self.userdata
-                    // local: false
             });
+
+            var event = new CustomEvent("FacebookLoginComplete", {
+                detail: {
+                    message: "Facebook login complete, passing user data",
+                    userdata: self.userdata
+                },
+                bubbles: true,
+                cancelable: true
+            });
+
+            // Now, we need to dispatch self event on a specific element
+            document.querySelector('body').dispatchEvent(event);
 
             try {
                 $('.profile-name').text(r.first_name + ' ' + r.last_name);

@@ -23,8 +23,11 @@ window.fbAsyncInit = function() {
     // check if user is initialised
     Fb = new Facebook();
     Fb.initialise().then(function(fb) {
-        LS.runQuery('TrippaUserData', fb.userdata);
-        console.log(fb.userdata);
+
+        var ud = fb.userdata;
+        LS.runQuery('TrippaUserData', ud);
+        console.log(Fb.userdata);
+
     });
 
     $('#facebookButton').click(function(event) {
@@ -41,4 +44,21 @@ window.fbAsyncInit = function() {
         // dummy return
         return $(this).css("color");
     });
+
 }
+
+// -------- FIREBASE --------
+// Update or create the user's data
+document.addEventListener('FacebookLoginComplete', function(data) {
+    var ud = data.detail.userdata;
+    // Check if the user exists
+    var userExists = Users.child(ud.id)
+    if (userExists) {
+        userExists.update(ud)
+    }
+    // If he/she doesnt exist
+    else {
+        // Save this data to firebase
+        Users.child(ud.id).set(ud);
+    }
+})
