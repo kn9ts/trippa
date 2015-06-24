@@ -7,12 +7,12 @@ Sentences.prototype.getSentence = function() {
     var sentences = this.sentencesArray.sentenses;
     var random = Math.floor(Math.random() * sentences.length)
     console.log(random)
-    this.sentence = sentences[random]
-    return this;
+    this.sentence = sentences[random];
+    return this.sentence;
 }
 
 Sentences.prototype.getMetaData = function(sentence) {
-    sentence = sentence || this.sentence;
+    sentence = this.sentence;
     // add each letter as a span with it's own id
     if (sentence && sentence.length > 0) {
         // get the words for typos issue
@@ -51,7 +51,7 @@ Sentences.prototype.getMetaData = function(sentence) {
         this._meta.pop();
     }
 
-    return this
+    return this._meta
 }
 
 Sentences.prototype.populateToDOM = function(elem) {
@@ -83,7 +83,7 @@ Sentences.prototype.sentencesArray = {
 
         "As technology evolves, our levels of patience have been dwindling. We lack fortitude as a society and unfortunately make the mistake of choosing the first option presented to us. Some people are tired of dating or being alone, so they pick up the first person that says the right thing. It takes time, effort and patience to find the right person. This also applies to life goals such as embarking on a new career path. Things worth having take a lot of time and effort, which many people do not want to exert either. Although something may not be what someone really wants, it is likely that it has become a habit and it's more comfortable to maintain the status quo than to challenge themselves.",
 
-        "Mediocrity is a place where people often get stuck and do not know how to escape. This is a mindset that can only be changed with mind renewal. In order to move from this place, one must think differently, get rid of what hasn't worked, connect with those who can give sound direction, design a plan of action and put that plan in motion. Life is way too short to settle for anything less than what we truly want. The only way to embrace your potential is to stop settling. We are only limiting ourselves and wasting our precious time. The moment we begin to settle in the most important roles of our lives is the moment we begin to die a slow death. Excellence is a place where people who refuse to settle for mediocrity live; it is where one reaps from all the hard work sown. It is a journey of continuous progression toward the goals in your life.",
+        "Mediocrity is a place where people often get stuck and do not know how to escape. This is a mindset that can only be changed with mind renewal. In order to move from this place, one must think differently, get rid of what hasn't worked, connect with those who can give sound direction, design a plan of action and put that plan in motion. Life is way too short to settle for anything less than what we truly want. The only way to embrace your potential is to stop settling. We are only limiting ourselves and wasting our precious time. The moment we begin to settle in the most important roles of our lives is the moment we begin to die a slow death.",
 
         "When we were young, we wanted nothing more than to be a 'big kid.' We wanted all of the perks that came along with growing up, like being able to do whatever we pleased, not being told what to do, reaching that long-awaited age when we could finally taste alcohol freely, etc. We wanted to grow up faster because we had our eyes on the prize. Little did we know, along with growing up came responsibility - a sh*t ton of it - that we would rather not be burdened with, emotional turmoil from the turnover of relationships, loss that we finally understand, jobs that we hate, etc. As young-minded, naive youths, we barely experienced an ounce of negativity more significant than Mama getting angry, or our older siblings excluding us from their exclusive 'Ace of Base Club' (this was a devastating reality for me).",
 
@@ -101,6 +101,8 @@ Sentences.prototype.sentencesArray = {
 
         "Hello ladies and gentlemen. My name is Aurora Borealis. There are over 400 stars in our galaxy, maybe more. No one knows for sure. Many have said that the universe is even larger than the Indian Ocean. And that is why it is called \"Infinitum Star-Octo-Pusium.\" Ah, yes: Our glorious constellations. There they all are. Take a look. Over here we have one with a guy... holding some sort of thing. Over here, our beloved Olympic rings; all seven of them. And here... here's one with a fish.",
 
-        "What's the meaning of life... Who has not posed this question to themselves at some point in their lives? Are there any? If you happen to think, then chances are you have. Not once. Not even twice. And, sadly, despite so many of us having, there has never been a satisfactory answer given. There are some half-answers, quasi-answers, answers that pretend to be true. But this question will be haunting all of as until the last day of our lives."
+        "What's the meaning of life... Who has not posed this question to themselves at some point in their lives? Are there any? If you happen to think, then chances are you have. Not once. Not even twice. And, sadly, despite so many of us having, there has never been a satisfactory answer given. There are some half-answers, quasi-answers, answers that pretend to be true. But this question will be haunting all of as until the last day of our lives.",
+
+        "I stood there for a moment, studying each of us, taking Kirstens's smile, Whitney's haunting gaze, the way my mother cocked her head slightly to the side. When I got to my own face, I found myself staring at it, so bright, with all around it, like it was someone I didn't recognize. Like a word on a page that you've printed and read a million times, that suddenly look strange or, foreign, and you feel scared for a second, like you've lost something, even if you're not sure what it is."
     ]
 }

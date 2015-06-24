@@ -1,7 +1,7 @@
 var Application = function() {};
 
 Application.prototype = {
-    Sentence: null,
+    Sentence: {},
     // Application Constructor
     // Bind Event Listeners
     // Bind any events that are required on startup. Common events are:
@@ -19,10 +19,14 @@ Application.prototype = {
     deviceReady: function(app) {
         // do something (check if user is already signed in,
         // check for internet connection, resize app e.t.c)
-        var test = new Sentences();
-        var sentence = test.getSentence();
-        // console.log(sentence);
-        this.Sentence = sentence.getMetaData().populateToDOM('#guide-text');
+        var typing = new Sentences();
+        this.Sentence.sentence = typing.getSentence();
+        this.Sentence._meta = typing.getMetaData();
+
+        typing.populateToDOM('#guide-text');
+        return this;
+    },
+    getSentenceInstance: function() {
         return this.Sentence;
     },
     /**
