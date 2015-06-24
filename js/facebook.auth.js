@@ -1,5 +1,7 @@
 // Init the class
-var Facebook = function() {}
+var Facebook = function() {
+    this.userdata = {};
+}
 
 // Init Facebook login checkup
 Facebook.prototype.initialise = function() {
@@ -15,7 +17,7 @@ Facebook.prototype.initialise = function() {
             var accessToken = response.authResponse.accessToken;
             var expires = response.authResponse.expiresIn; //UTC time
 
-            //get user info, refresh it if it existed before
+            // get user info, refresh it if it existed before
             self.getUserInfo("facebook-opengraph-api");
         } else if (response.status === 'not_authorized') {
             // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -53,33 +55,88 @@ Facebook.prototype.initialise = function() {
             }, false); //ask for info
         }
     }, true);
+
+    return this;
 }
 
-Facebook.prototype.login = function(bool, cb) { //boolean, callback
-    if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
+Facebook.prototype.checkIfUserExist = function(cb, bool) {
+    var self = this;
+    var user = self.localStorage('TrippaUser');
+    console.log("does the user exit?? --- ", user);
+    if (user) { //exists
+        if (user.isFacebook !== "false") {
+            // if bool is false, the function will run
+            if (!bool) self.getUserFacebookInfo("facebook-opengraph-api");
+        } else {
+            // do nothing, the data is safe where it is;
+            // localstorage
+        }
+    } else {
+        // user does not exist;
+        // Ensure the FB button is working
+        $('#facebookInit').click(function(event) {
+            event.preventDefault();
+            // initialise the login phase
+            self.login(true, function(response) {
+                // Hide the modal window
+                $('a[href="#user-record"]').on('shown.bs.tab', function() {
+                    console.log("questionaire has been hidden.")
+                }).click(); // .tab('show');
+
+                // work with the response from FB
+                if (response.authResponse) {
+                    // The person logged into your app
+                    self.getUserFacebookInfo("facebook-opengraph-api"); // get his info -- opengraph api
+                } else {
+                    // The person cancelled the login dialog -- handle error
+                    // So maybe he doesnt want to use FB, so just hide FB auth and show normal form.
+                    self.checkIfUserExist([], true);
+                }
+            });
+        }).css('color', function() {
+            if (bool) { // If boolean is set, then hide the Facebook auth well
+                $(this).hide();
+                // Do some more stuff
+            }
+            // dummy return
+            return $(this).css("color");
+        });
+    }
+
+    // run the callback if it's a function
+    if (cb && typeof cb == "function") cb(user); //u ndefined if no user
+}
+
+Facebook.prototype.login = function(bool, cb) { // boolean, callback
+    if (!cb) cb = function() {}; // assign an empty function if no callback is defined.
 
     // if undefined or true -- login in user to app
     if (bool || bool === undefined) {
         FB.login(cb, {
-            scope: "basic_info, email, user_birthday, user_hometown, user_location"
+            scope: "public_profile, basic_info, email, user_birthday, user_hometown, user_location"
         });
-        //note: will acquire profil pic after loggin
-    } else { //anything else
+        // note: will acquire profil pic after loggin
+    }
+    // anything else
+    else {
         FB.logout(function(response) {
             // Person is now logged out
-            cb(response); //run callback, passing the FB response
+            cb(response); // run callback, passing the FB response
             console.log("User logged out successfuly...");
             $('#fbpicture').attr('src', '../assets/10.jpg').parent().find('#fbusername').text('Storyteller');
-            //reload page
+            // reload page
             window.location.reload(false);
             // If we needed to pull the document from
-            //  the web-server again (such as where the document contents
-            //  change dynamically) we would pass the argument as 'true'.
+            // the web-server again (such as where the document contents
+            // change dynamically) we would pass the argument as 'true'.
         });
     }
+
+    return this;
 }
 
 Facebook.prototype.getUserInfo = function() {
+    var self = this;
     console.log('============ Welcome! Fetching your information... ============');
     FB.api('/me', function(response) {
         if (response && !response.error) {
@@ -89,7 +146,7 @@ Facebook.prototype.getUserInfo = function() {
                 // console.log(JSON.stringify(r));
             r.isFacebook = true; //from facebook;
 
-            var userdata = {
+            self.userdata = {
                 id: r.id,
                 first_name: r.first_name,
                 last_name: r.last_name,
@@ -104,18 +161,18 @@ Facebook.prototype.getUserInfo = function() {
                 email: r.email,
                 isFacebook: true
             }
-            console.log(userdata);
+            console.log(self.userdata);
 
             //store this data
             app.localStorage('TrippaUser', {
-                content: userdata
+                content: self.userdata
                     // local: false
             });
 
             try {
-                $('#fbusername').text(r.first_name);
+                $('#profile-name').text(r.first_name);
                 // $('#fbpicture').attr("src", r.picture.data.url);
-                this.getProfilePic();
+                self.getProfilePic();
             } catch (error) {
                 //do nothing
                 console.log("error occured -- " + error);
@@ -125,6 +182,8 @@ Facebook.prototype.getUserInfo = function() {
             console.log(response.error);
         }
     });
+
+    return this;
 }
 
 Facebook.prototype.getProfilePic = function() {
@@ -141,13 +200,24 @@ Facebook.prototype.getProfilePic = function() {
                 /* handle the result */
                 console.log(JSON.stringify(response));
                 // remove https to avoid any cert issues
-                var profileImage = response.data.url.replace('https', 'http'),
-                    randomNumber = Math.floor(Math.random() * 256);
+                var profileImage = response.data.url.replace('https', 'http');
+                var randomNumber = Math.floor(Math.random() * 256);
 
+                console.log(profileImage);
                 // remove if there and add image element to dom to show without refresh
                 // add random number to reduce the frequency of cached images showing
-                $('.profile-image').attr("src", profileImage + '?' + randomNumber);
+                document.querySelector('.profile-pic').setAttribute('src', profileImage);
             }
         }
     );
+
+    return this;
+}
+
+Facebook.prototype.then = function(cb) {
+    if (cb && typeof cb == 'function') {
+        cb(this);
+    }
+
+    return this;
 }

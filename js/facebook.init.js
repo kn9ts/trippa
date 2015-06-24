@@ -1,4 +1,5 @@
 var Fb;
+var Data = new LocalStorage();
 // The function assigned to window.fbAsyncInit is run as soon as the SDK has completed loading.
 // Any code that you want to run after the SDK is loaded should be placed within this function and after the call to FB.init.
 // Any kind of JavaScript can be used here, but any SDK functions must be called after FB.init.
@@ -21,5 +22,7 @@ window.fbAsyncInit = function() {
 
     // check if user is initialised
     Fb = new Facebook();
-    Fb.initialise();
+    Fb.initialise().then(function(fb) {
+
+    });
 }
