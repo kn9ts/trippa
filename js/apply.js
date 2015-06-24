@@ -6,9 +6,9 @@ var textArea = $('textarea');
 textArea.keydown(function(ev) {
     var el = this;
     if (collectTypingData.length === 0 && !countdown.isActive) {
-        countdown.startCountDown().then(function(cd) {
-            // collect data
-        });
+
+        console.log("========== STARTED ===========", el.which)
+        countdown.startCountDown();
     }
 })
 

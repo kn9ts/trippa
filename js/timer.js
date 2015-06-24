@@ -12,6 +12,7 @@ var Timer = function(elem) {
 Timer.prototype = {
     startCountDown: function() {
         var self = this;
+        self.isActive = true;
         console.log(self.time);
         this.countingDown = setInterval(function() {
             // check if the countdown has reached zero
@@ -21,7 +22,6 @@ Timer.prototype = {
 
             // If not keep subtracting
             self.time--;
-            self.isActive = true;
             document.querySelector(self.elem).textContent = self.time;
 
             var event = new CustomEvent("countdown", {
