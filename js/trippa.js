@@ -32,11 +32,17 @@ Trippa.prototype = {
         // Replace all new lines and tabs with spaces
         words_typed = words_typed.replace(/(\n|\t)/, ' ').split(/\s/g);
 
+        console.log(words_typed);
+        console.log(words);
+
         var count = 0;
         for (var x = 0; x < words_typed.length; x++) {
             if (words.indexOf(words_typed[x]) == -1) {
                 console.log(words[x]);
-                count++;
+                // look for finished typose
+                if(words_typed[x].length >= (words[x].length - (words_typed[x].length / 2))) {
+                    count++;
+                }
             }
         }
 
