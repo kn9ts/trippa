@@ -2,7 +2,8 @@
 var Facebook = function() {}
 
 // Init Facebook login checkup
-Facebook.prototype.initApplication = function() {
+Facebook.prototype.initialise = function() {
+    var self = this;
     // FB App check
     FB.getLoginStatus(function(response) {
         // Here we specify what we do with the response anytime this event occurs.
@@ -15,7 +16,7 @@ Facebook.prototype.initApplication = function() {
             var expires = response.authResponse.expiresIn; //UTC time
 
             //get user info, refresh it if it existed before
-            this.getUserInfo("facebook-opengraph-api");
+            self.getUserInfo("facebook-opengraph-api");
         } else if (response.status === 'not_authorized') {
             // In this case, the person is logged into Facebook, but not into the app, so we call
             // FB.login() to prompt them to do so.
@@ -25,12 +26,12 @@ Facebook.prototype.initApplication = function() {
             // result from direct interaction from people using the app (such as a mouse click)
             // (2) it is a bad experience to be continually prompted to login upon page load.
             console.log("The person is logged into Facebook, but not into the app.")
-            this.checkIfUserExist(function(response) {
+            self.checkIfUserExist(function(response) {
                 if (response && response.isFacebook == "false") {
                     console.log("user exist without facebook auth...", response);
-                    // this.localStorage('hadithiUser', false);
+                    // self.localStorage('TrippaUser', false);
                 } else {
-                    this.checkIfUserExist();
+                    self.checkIfUserExist();
                 }
             }, false); //ask for info
         } else {
@@ -40,13 +41,13 @@ Facebook.prototype.initApplication = function() {
             // dialog right after they log in to Facebook.
             // The same caveats as above apply to the FB.login() call here.
             console.log("The person is not logged into Facebook")
-            this.checkIfUserExist(function(response) {
+            self.checkIfUserExist(function(response) {
                 if (response && response.isFacebook == "false") {
                     console.log("user exist without facebook auth...", response);
-                    // this.localStorage('hadithiUser', false);
+                    // self.localStorage('TrippaUser', false);
                 } else {
-                    this.checkIfUserExist();
-                    // this.localStorage('hadithiUser', false);
+                    self.checkIfUserExist();
+                    // this.localStorage('TrippaUser', false);
                     console.log("user exist is not saved anywhere or anyhow!!!", response);
                 }
             }, false); //ask for info
@@ -54,7 +55,7 @@ Facebook.prototype.initApplication = function() {
     }, true);
 }
 
-Facebook.prototype.loginFacebook = function(bool, cb) { //boolean, callback
+Facebook.prototype.login = function(bool, cb) { //boolean, callback
     if (!cb) cb = function() {}; //assign an empty function if no callback is defined.
 
     // if undefined or true -- login in user to app
@@ -106,7 +107,7 @@ Facebook.prototype.getUserInfo = function() {
             console.log(userdata);
 
             //store this data
-            this.localStorage('hadithiUser', {
+            app.localStorage('TrippaUser', {
                 content: userdata
                     // local: false
             });
@@ -145,7 +146,7 @@ Facebook.prototype.getProfilePic = function() {
 
                 // remove if there and add image element to dom to show without refresh
                 // add random number to reduce the frequency of cached images showing
-                $('#fbpicture').attr("src", profileImage + '?' + randomNumber);
+                $('.profile-image').attr("src", profileImage + '?' + randomNumber);
             }
         }
     );

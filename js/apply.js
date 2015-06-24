@@ -15,7 +15,7 @@ var appInstance = app.initialize();
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 10);
+    var countdown = new Timer('#time', 60);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');

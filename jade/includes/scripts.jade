@@ -19,12 +19,14 @@ application-engine(description="all the application's JS files fall here")
     script(src="./dist/js/trippa.js")
     script(src="./dist/js/timer.js")
     script(src="./dist/js/sentences.js")
-    script(src="./dist/js/facebook.auth.js")
     script(src="./dist/js/application.js")
+    script(src="./dist/js/facebook.auth.js")
+    script(src="./dist/js/facebook.init.js")
     script(src="./dist/js/apply.js")
     script.
         // enable CORS support
         $.support.cors = true;
+
         // Set cookie defaults
         if (jQuery && $.cookie) {
             $.cookie.defaults = {
@@ -33,9 +35,18 @@ application-engine(description="all the application's JS files fall here")
                 domain: location.href
             };
         }
-        //on document ready, as soon as it begins to load
-        var app = new Application();
-        app.initialize();
+
+        // Load the Facebook SDK asynchronously
+        (function(d) {
+            var js, id = 'facebook-jssdk',
+                ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "http://connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
 
         // Google Analytics: change UA-XXXXX-X to be your site's ID.
         //- (function(b, o, i, l, e, r) {
