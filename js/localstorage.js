@@ -25,9 +25,13 @@ LocalStorage.prototype.runQuery = function(key, options) {
             if ($.cookie) $.cookie(key, options.content);
             localStorage.setItem(key, JSON.stringify(options.content));
         }
-    } else if (options === false) {
+    }
+    // If a False boolean is provided as the option instead, remove all data related with the key
+    else if (options === false) {
         localStorage.removeItem(key);
         if ($.cookie) $.cookie(key, false); // remove everything
+        console.log("------- DATA removed -----------");
+        return true;
     }
 
     // if only one argument is given retrieve that data from localstorage
