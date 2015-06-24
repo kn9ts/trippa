@@ -1,6 +1,6 @@
 var Timer = function(elem) {
-    this.time = 60;
-    this.timeAllocation = 60;
+    this.time = 10;
+    this.timeAllocation = 10;
     this.elem = elem || document;
     this.isActive = false;
 
