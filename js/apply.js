@@ -54,12 +54,13 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
 // -------- FIREBASE --------
 // Update or create the user's data on Facebook login
 document.addEventListener('FacebookLoginComplete', function(data) {
-    var ud = data.detail.userdata;
+    var user_crendential = data.detail.userdata;
     // Check if the user exists
-    userExists = Users.child(ud.id);
+    // https://trippa.firebaseio.com/users/1013945085302869
+    userExists = Users.child(user_crendential.id); // Users.child('12621726721')
     if (userExists) {
-        userExists.update(ud)
-        Users.child(ud.id).on('value', function(snapshot) {
+        userExists.update(user_crendential)
+        Users.child(user_crendential.id).on('value', function(snapshot) {
             console.log("======= Firebase User DATA: ========", snapshot.val());
             user = snapshot.val();
 
@@ -73,7 +74,7 @@ document.addEventListener('FacebookLoginComplete', function(data) {
     // If he/she doesnt exist
     else {
         // Save this data to firebase
-        Users.child(ud.id).set(ud);
+        Users.child(user_crendential.id).set(user_crendential);
     }
 
     // Re-enable the text area
