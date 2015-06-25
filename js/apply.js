@@ -28,10 +28,19 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
     var scores = snapshot.val();
 
     var scores_array = _.toArray(scores);
-    // scores_array = _.sortBy(scores_array, 'WPM').reverse();
-    scores_array = scores_array.sort(function(a, b) {
-        return b.WPM - a.WPM && b.accuracy - a.accuracy;
-    })
+
+    var trippa = new Trippa();
+    // Calculates the average of the two: WPM & accuracy
+    scores_array = _.map(scores_array, function(score) {
+        var Average = ((score.WPM * 100) / trippa.proSpeed + score.accuracy) / 2;
+        score.average = Average;
+        return score;
+    });
+
+    scores_array = _.sortBy(scores_array, 'average').reverse();
+    // scores_array = scores_array.sort(function(a, b) {
+    //     return b.WPM - a.WPM && b.accuracy - a.accuracy;
+    // })
     console.log(scores_array);
 
     var count = 1;
@@ -111,7 +120,12 @@ $(function() {
             reset_time.toggleClass('button-error');
             countdown.startCountDown();
         }
-    })
+    });
+
+    // Disabled copy/paste
+    textArea.on('copy paste', function(e) {
+        e.preventDefault();
+    });
 
     // do something
     document.addEventListener('countdown', function(event) {
