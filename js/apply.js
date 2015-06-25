@@ -21,8 +21,37 @@ var Users = myFirebase.child("users"),
     scoreCard;
 var Leaderboard = myFirebase.child("leaderboard");
 
-Leaderboard.on('value', function(snapshot) {
+Leaderboard.orderByValue().on('value', function(snapshot) {
     console.log("all leaderboard data", snapshot.val());
+    $('.leaderboard tbody.leaderboard-results').empty();
+    var scores = snapshot.val();
+
+    var scores_array = _.toArray(scores);
+    // scores_array = _.sortBy(scores_array, 'WPM').reverse();
+    scores_array = scores_array.sort(function(a,b) {
+        return b.WPM - a.WPM && b.accuracy - a.accuracy;
+    })
+    console.log(scores_array);
+
+    // count = 1;
+    // for(var id in scores) {
+    //     console.log(id);
+    //     var td = '<tr><td>' + count + '</td><td>' + scores[id].name + '</td><td>' + scores[id].WPM + '</td><td>' + scores[id].accuracy + '</td><td>' + scores[id].typos + '</td></tr>';
+    //     $('.leaderboard tbody.leaderboard-results').append(td)
+    //     count++;
+    // }
+
+    _.map(scores_array, function(score, x) {
+        var td = '<tr><td>' + (x++) + '</td><td>' + score.name + '</td><td>' + score.WPM + '</td><td>' + score.accuracy + '</td><td>' + score.typos + '</td></tr>';
+        $('.leaderboard tbody.leaderboard-results').append(td)
+    });
+
+    // for(var x = 1; x < scores_array.length; x++) {
+    //     console.log(scores_array[x]);
+    //     var td = '<tr><td>' + x + '</td><td>' + scores_array[x].name + '</td><td>' + scores_array[x].WPM + '</td><td>' + scores_array[x].accuracy + '</td><td>' + scores_array[x].typos + '</td></tr>';
+    //     $('.leaderboard tbody.leaderboard-results').append(td)
+    // }
+
 })
 
 // -------- FIREBASE --------
@@ -56,7 +85,7 @@ document.addEventListener('FacebookLoginComplete', function(data) {
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 6);
+    var countdown = new Timer('#time', 10);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');
@@ -110,6 +139,9 @@ $(function() {
             DATA.accuracy = parseInt(Accuracy);
             DATA.WPM = WPM;
             DATA.typos = Typos;
+
+            // Just push data for testing
+            Leaderboard.push(DATA);
 
             // check to see if the user is logged in
             if (userExists) {
