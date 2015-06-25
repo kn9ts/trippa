@@ -196,6 +196,7 @@ Facebook.prototype.getUserInfo = function() {
                 content: self.userdata
             });
 
+            // Send this data to Firebase so as to be udpated
             var event = new CustomEvent("FacebookLoginComplete", {
                 detail: {
                     message: "Facebook login complete, passing user data",

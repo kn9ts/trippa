@@ -46,19 +46,3 @@ window.fbAsyncInit = function() {
     });
 
 }
-
-// -------- FIREBASE --------
-// Update or create the user's data
-document.addEventListener('FacebookLoginComplete', function(data) {
-    var ud = data.detail.userdata;
-    // Check if the user exists
-    var userExists = Users.child(ud.id)
-    if (userExists) {
-        userExists.update(ud)
-    }
-    // If he/she doesnt exist
-    else {
-        // Save this data to firebase
-        Users.child(ud.id).set(ud);
-    }
-})
