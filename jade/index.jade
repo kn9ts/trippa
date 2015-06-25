@@ -7,7 +7,7 @@ block content
 
         ul.pure-menu-list.pull-right
             li
-                a(href="").white LeaderBoard
+                a(href="javascrip:;").open-leaderboard.white LeaderBoard
 
     .pure-u-g.clear
         // Results tab
@@ -63,11 +63,11 @@ block content
 
 
     .pure-u-g.board
-        .pure-u-1-2.leaderboard.space.white-bg
-            h2.uppercase LeaderBoard
+        .pure-u-1-2.leaderboard.space.white-bg.animated.bounceInRight
+            h2.uppercase.red LeaderBoard
             table.pure-table.pure-table-horizontal
                 thead
-                    tr
+                    tr.table-titles
                         th #pos
                         th Name
                         th WPM
@@ -76,5 +76,5 @@ block content
 
                 tbody.leaderboard-results
 
-        .pure-u-1.overlay
+        .pure-u-1.overlay.animated
 

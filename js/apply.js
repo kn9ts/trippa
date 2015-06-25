@@ -21,6 +21,7 @@ var Users = myFirebase.child("users"),
     scoreCard;
 var Leaderboard = myFirebase.child("leaderboard");
 
+// get all the scores, order then and display in the leaderboard card
 Leaderboard.orderByValue().on('value', function(snapshot) {
     console.log("all leaderboard data", snapshot.val());
     $('.leaderboard tbody.leaderboard-results').empty();
@@ -28,12 +29,12 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
 
     var scores_array = _.toArray(scores);
     // scores_array = _.sortBy(scores_array, 'WPM').reverse();
-    scores_array = scores_array.sort(function(a,b) {
+    scores_array = scores_array.sort(function(a, b) {
         return b.WPM - a.WPM && b.accuracy - a.accuracy;
     })
     console.log(scores_array);
 
-    // count = 1;
+    var count = 1;
     // for(var id in scores) {
     //     console.log(id);
     //     var td = '<tr><td>' + count + '</td><td>' + scores[id].name + '</td><td>' + scores[id].WPM + '</td><td>' + scores[id].accuracy + '</td><td>' + scores[id].typos + '</td></tr>';
@@ -42,7 +43,7 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
     // }
 
     _.map(scores_array, function(score, x) {
-        var td = '<tr><td>' + (x++) + '</td><td>' + score.name + '</td><td>' + score.WPM + '</td><td>' + score.accuracy + '</td><td>' + score.typos + '</td></tr>';
+        var td = '<tr><td>' + (count++) + '</td><td>' + score.name + '</td><td>' + score.WPM + '</td><td>' + score.accuracy + '</td><td>' + score.typos + '</td></tr>';
         $('.leaderboard tbody.leaderboard-results').append(td)
     });
 
@@ -98,6 +99,20 @@ $(function() {
         // If they had Disable the text area till the Facebook data has been pulled
         textArea.attr('disabled', true);
     }
+
+    // slide in the comments side-bar
+    $('.open-leaderboard').click(function(ev) {
+        ev.preventDefault();
+
+        $('.leaderboard').removeClass('bounceOutRight').addClass('bounceInRight');
+        $('.overlay').css('display', 'block');
+    })
+
+    // Add event of it's closure
+    $('.overlay, .leaderboard button.close').css('display', 'block').on('click', function(ev) {
+        $('.leaderboard').removeClass('bounceInRight').addClass('bounceOutRight');
+        $('.overlay').css('display', 'none');
+    });
 
     textArea.keydown(function(ev) {
         var el = this;
