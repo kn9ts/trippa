@@ -1,6 +1,8 @@
 # Trippa
 ### Test your typing speed
 
+[http://trippa.firebaseapp.com](http://trippa.firebaseapp.com)
+
 Do you think you are a good typer? An average touch typer can type at around 60 WPM (word per minute). Find out how fast you are.
 
 ### WPM Definition
