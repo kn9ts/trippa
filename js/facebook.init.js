@@ -14,7 +14,7 @@ window.fbAsyncInit = function() {
 
     //init FB auth
     FB.init({
-        appId: location.host.indexOf('localhost') > -1 ? APP_ID.local: APP_ID.remote,
+        appId: location.host.indexOf('localhost') > -1 ? APP_ID['local'] : APP_ID['remote'],
         status: false, // check login status on SDK load
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: false // parse XFBML
@@ -35,7 +35,6 @@ window.fbAsyncInit = function() {
         console.log("BUTTON CLICKED");
         // Try to prompt the user to login
         Fb.tryAction('login');
-
         // If user exists, this is a logout request
         if (LS.runQuery('TrippaUser')) {
             LS.runQuery('TrippaUser', false);

@@ -86,12 +86,15 @@ document.addEventListener('FacebookLoginComplete', function(data) {
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 10);
+    var countdown = new Timer('#time', 60);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');
     var accuracy = $('#accuracy');
     var reset_time = $('#reset-time');
+
+    // Enabled on app start
+    textArea.attr('disabled', false);
 
     // Check the trace of user existing, if he/she logged in
     var isLoggedIn = LS.runQuery('TrippaUser');
@@ -109,7 +112,7 @@ $(function() {
     })
 
     // Add event of it's closure
-    $('.overlay, .leaderboard button.close').css('display', 'block').on('click', function(ev) {
+    $('.overlay, .leaderboard button.close').on('click', function(ev) {
         $('.leaderboard').removeClass('bounceInRight').addClass('bounceOutRight');
         $('.overlay').css('display', 'none');
     });

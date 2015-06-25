@@ -4,12 +4,14 @@ block content
     header.pure-menu.pure-menu-horizontal.red-bg
         a(href="").pure-menu-heading.pure-menu-link
             h2.no-padding.margin-xs.white
-                fa.fa-bullseye.fa-2x
+                i.fa.fa-bullseye&nbsp;
                 | TRIPPA
 
         ul.pure-menu-list.pull-right
             li
-                a(href="javascrip:;").open-leaderboard.white LeaderBoard
+                a(href="javascript:;").open-leaderboard.white
+                    i.fa.fa-list&nbsp;
+                    | View LeaderBoard
 
     .pure-u-g.clear
         // Results tab
@@ -17,18 +19,24 @@ block content
             .pure-u-g
                 .pure-u-1.info
                     h2.showing#wpm 0
-                    small wpm
+                    small
+                        i.fa.fa-keyboard-o&nbsp;
+                        | wpm
 
             .pure-u-g
                 .pure-u-1.info
                     h2.showing#typos 0
-                    small typos
+                    small
+                        i.fa.fa-times&nbsp;
+                        | typos
 
             .pure-u-g
                 .pure-u-1.info
                     h2.showing#accuracy 0
                         span %
-                    small acc
+                    small
+                        i.fa.fa-pie-chart&nbsp;
+                        | acc
 
         .pure-u-2-3
             .pure-u-g.text-to-type
@@ -51,12 +59,16 @@ block content
                     img.profile-pic(src="http://lorempixel.com/g/200/200/cats")
                     h3.profile-name Login to save/track your results
                     small
-                        button#facebookButton.pure-button.pure-button-primary Log in
+                        button#facebookButton.pure-button.pure-button-primary
+                            i.fa.fa-unlock-alt&nbsp;
+                            | Log in
 
             .pure-u-g.timer
                 .pure-u-1
                     h2.showing#time 60
-                    small seconds
+                    small
+                        i.fa.fa-clock-o&nbsp;
+                        | seconds
 
             .pure-u-g
                  .pure-u-1
@@ -65,7 +77,7 @@ block content
 
 
     .pure-u-g.board
-        .pure-u-1-2.leaderboard.space.white-bg.animated.bounceInRight
+        .pure-u-1-2.leaderboard.space.white-bg.animated.bounceOutRight
             h2.uppercase.red LeaderBoard
             table.pure-table.pure-table-horizontal
                 thead
@@ -78,5 +90,6 @@ block content
 
                 tbody.leaderboard-results
 
-        .pure-u-1.overlay.animated
+        .pure-u-1
+            .overlay
 
