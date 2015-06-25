@@ -55,6 +55,10 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
 // Update or create the user's data on Facebook login
 document.addEventListener('FacebookLoginComplete', function(data) {
     var user_crendential = data.detail.userdata;
+
+    // Re-enable the text area
+    $('textarea').attr('disabled', false);
+
     // Check if the user exists
     // https://trippa.firebaseio.com/users/1013945085302869
     userExists = Users.child(user_crendential.id); // Users.child('12621726721')
@@ -76,9 +80,6 @@ document.addEventListener('FacebookLoginComplete', function(data) {
         // Save this data to firebase
         Users.child(user_crendential.id).set(user_crendential);
     }
-
-    // Re-enable the text area
-    $('textarea').attr('disabled', false);
 });
 
 $(function() {

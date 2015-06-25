@@ -186,7 +186,7 @@ Facebook.prototype.getUserInfo = function() {
                 // age_range: r.age_range
                 // hometown: r.hometown.name,
                 // birthday: r.birthday,
-                email: r.email,
+                email: r.email || false,
                 isFacebook: true
             }
             console.log(self.userdata);
