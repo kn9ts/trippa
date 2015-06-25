@@ -21,6 +21,10 @@ var Users = myFirebase.child("users"),
     scoreCard;
 var Leaderboard = myFirebase.child("leaderboard");
 
+Leaderboard.on('value', function(snapshot) {
+    console.log("all leaderboard data", snapshot.val());
+})
+
 // -------- FIREBASE --------
 // Update or create the user's data on Facebook login
 document.addEventListener('FacebookLoginComplete', function(data) {
@@ -32,6 +36,12 @@ document.addEventListener('FacebookLoginComplete', function(data) {
         Users.child(ud.id).on('value', function(snapshot) {
             console.log("======= Firebase User DATA: ========", snapshot.val());
             user = snapshot.val();
+
+            var userLeaderboardURL = "https://trippa.firebaseio.com/leaderboard/" + user.scoreId;
+            scoreCard = new Firebase(userLeaderboardURL);
+            scoreCard.on('value', function(snapshot) {
+                // Use this data
+            })
         });
     }
     // If he/she doesnt exist

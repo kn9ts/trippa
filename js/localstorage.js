@@ -7,12 +7,13 @@ var LocalStorage = function() {}
  * STORE CONTENT locally or in cookie or BOTH
  *
  * HOW TO USE:
-     var app = new LocalStorage();
-     app.runQuery('key') //Returns the content if existing, or false if it doesnt
-     app.runQuery('key', {
-        content: the content, can be a raw object, string or raw array //it is stringified by the function
-        local: true/false //yes or no if you want to store only in localStorage
-     })
+    var app = new LocalStorage();
+    app.runQuery('key') // Returns the content if existing, or false if it doesnt
+    app.runQuery('key', {
+    content: the content, can be a raw object, string or raw array // it is stringified by the function
+    local: true/false // yes or no if you want to store only in localStorage
+    })
+    app.localStorage('key', false) // Delete the item from storage from both cookie and localstorage
  */
 LocalStorage.prototype.runQuery = function(key, options) {
     if (options) {
