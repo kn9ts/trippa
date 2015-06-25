@@ -35,23 +35,10 @@ Leaderboard.orderByValue().on('value', function(snapshot) {
     console.log(scores_array);
 
     var count = 1;
-    // for(var id in scores) {
-    //     console.log(id);
-    //     var td = '<tr><td>' + count + '</td><td>' + scores[id].name + '</td><td>' + scores[id].WPM + '</td><td>' + scores[id].accuracy + '</td><td>' + scores[id].typos + '</td></tr>';
-    //     $('.leaderboard tbody.leaderboard-results').append(td)
-    //     count++;
-    // }
-
     _.map(scores_array, function(score, x) {
         var td = '<tr><td>' + (count++) + '</td><td>' + score.name + '</td><td>' + score.WPM + '</td><td>' + score.accuracy + '</td><td>' + score.typos + '</td></tr>';
         $('.leaderboard tbody.leaderboard-results').append(td)
     });
-
-    // for(var x = 1; x < scores_array.length; x++) {
-    //     console.log(scores_array[x]);
-    //     var td = '<tr><td>' + x + '</td><td>' + scores_array[x].name + '</td><td>' + scores_array[x].WPM + '</td><td>' + scores_array[x].accuracy + '</td><td>' + scores_array[x].typos + '</td></tr>';
-    //     $('.leaderboard tbody.leaderboard-results').append(td)
-    // }
 
 })
 
@@ -159,7 +146,7 @@ $(function() {
             DATA.typos = Typos;
 
             // Just push data for testing
-            Leaderboard.push(DATA);
+            // Leaderboard.push(DATA);
 
             // check to see if the user is logged in
             if (userExists) {
@@ -180,7 +167,7 @@ $(function() {
                     DATA.id = user.id;
                     DATA.name = [user.first_name, user.last_name].join(' ');
                     DATA.gender = user.gender;
-                    DATA.location = user.location;
+                    // DATA.location = user.location;
 
                     var scoreId = Leaderboard.push(DATA, function(no_data_returned) {
                         console.log("=============== Firebase Post Callback ==============", scoreId.key())

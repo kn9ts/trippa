@@ -131,7 +131,7 @@ Facebook.prototype.login = function(bool, cb) { // boolean, callback
     // if undefined or true -- login in user to app
     if (bool || bool === undefined) {
         FB.login(cb, {
-            scope: "public_profile, basic_info, email, user_birthday, user_hometown, user_location"
+            scope: "public_profile, email, user_birthday, user_hometown, user_location"
         });
         // note: will acquire profil pic after loggin
     }
@@ -170,7 +170,7 @@ Facebook.prototype.getUserInfo = function() {
         if (response && !response.error) {
             var r = response;
             /* handle the result */
-            console.log('Good to see you, -- ' + r.first_name)
+            console.log('Good to see you, -- ' + r.first_name, r);
                 // console.log(JSON.stringify(r));
             r.isFacebook = true; //from facebook;
 
@@ -181,11 +181,11 @@ Facebook.prototype.getUserInfo = function() {
                 link: r.link,
                 // username: r.username,
                 gender: r.gender,
-                locale: r.locale,
-                location: r.location.name,
+                // locale: r.locale,
+                // location: r.location.name,
                 // age_range: r.age_range
-                hometown: r.hometown.name,
-                birthday: r.birthday,
+                // hometown: r.hometown.name,
+                // birthday: r.birthday,
                 email: r.email,
                 isFacebook: true
             }

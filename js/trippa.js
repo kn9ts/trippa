@@ -1,6 +1,8 @@
 var Trippa = function(data) {
     this.data = data || [];
-    this.averageSpeed = 35;
+    this.averageSpeed = 38;
+    this.proficientSpeed = 50;
+    this.proSpeed = 70;
     this.timeAllocated = 60;
     this.averageWordLength = 5;
 }

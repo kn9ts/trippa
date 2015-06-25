@@ -17,21 +17,21 @@ block content
         // Results tab
         .pure-u-1-6.results.text-center
             .pure-u-g
-                .pure-u-1.info
+                .pure-u-1.info.blue
                     h2.showing#wpm 0
                     small
                         i.fa.fa-keyboard-o&nbsp;
                         | wpm
 
             .pure-u-g
-                .pure-u-1.info
+                .pure-u-1.info.red
                     h2.showing#typos 0
                     small
                         i.fa.fa-times&nbsp;
                         | typos
 
             .pure-u-g
-                .pure-u-1.info
+                .pure-u-1.info.green
                     h2.showing#accuracy 0
                         span
                             small.small %
@@ -47,7 +47,7 @@ block content
 
             .pure-u-g
                 .pure-u-1
-                    textarea#typing-field.pure-input-1(type="text" name="typing-field" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit...")
+                    textarea#typing-field(type="text" name="typing-field" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit...")
 
                     span.label.green-bg.white.padding-xs.space
                         strong Note:&nbsp;
@@ -65,7 +65,7 @@ block content
                             | Log in
 
             .pure-u-g.timer
-                .pure-u-1
+                .pure-u-1.red
                     h2.showing#time 60
                     small
                         i.fa.fa-clock-o&nbsp;

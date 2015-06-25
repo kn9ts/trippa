@@ -34,19 +34,24 @@
 .text-to-type {
     #guide-text {
         color: lighten(color('#333'), 40%);
-        font-size: 1.3em
+        font-size: 1.3em;
+        // background: lighten(@grey, 85%);
+        border: 3px solid lighten(@grey, 75%);
+        padding: 2.5%;
     }
 }
 
 textarea {
-    width: 100%;
+    width: 95%;
+    margin: 2.5% auto;
     height: 250px;
     border: 3px solid #cccccc;
     padding: 5px;
-    font-size: 18px;
+    font-size: 1.25em;
     font-family: Ubuntu, Tahoma, sans-serif;
     outline: none;
     color: lighten(green, 10%);
+    padding: 2.5%
 }
 
 ul.pure-menu-list {
@@ -59,8 +64,6 @@ ul.pure-menu-list {
         }
     }
 }
-
-.board {}
 
 .leaderboard {
     position: fixed !important;
