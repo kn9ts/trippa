@@ -115,13 +115,54 @@ $(function() {
         $('.overlay').css('display', 'none');
     });
 
-    textArea.keydown(function(ev) {
+    textArea.keyup(function(ev) {
         var el = this;
         if (collectTypingData.length === 0 && !countdown.isActive) {
             console.log("========== STARTED ===========", ev.which);
             reset_time.toggleClass('button-error');
             countdown.startCountDown();
         }
+
+        // get what he has typed
+        var typed = $(el).val();
+        var words_typed = typed.split(/\s/g);
+        var given = appInstance.getSentenceInstance();
+        // console.log(given._meta);
+
+        var Sentence = given.sentence;
+        var words = Sentence.split(/\s/g).splice(0, words_typed.length);
+        // console.log(words);
+
+        // Loop thru the words of the sentence given
+        for (var x = 0; x < words.length; x++) {
+            var word = words[x],
+                wt = words_typed[x];
+
+            var word_data = _.where(given._meta, {word_position: x});
+            // console.log(word_data);
+
+            for(var i in word_data) {
+                var val = word_data[i];
+                if(val.letter != wt[val.letter_position]) {
+                    $('span#' + val.dom_position).removeClass('green').addClass('red');
+                } else {
+                    $('span#' + val.dom_position).removeClass('red').addClass('green');
+                }
+                // console.log(val)
+            }
+
+            // loop thru the letters of the word itself
+            // for (var i = 0; i < word.length; i++) {
+            //     // If the letter's do no not match what the user has typed
+            //     console.log(word[i], wt[i], word[i] != wt[i]);
+            //     if (word[i] != wt[i]) {
+            //         $('span#position-' + i).removeClass('green').addClass('red');
+            //     } else {
+            //         $('span#position-' + i).removeClass('red').addClass('green');
+            //     }
+            // }
+        }
+
     });
 
     // Disabled copy/paste

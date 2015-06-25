@@ -30,9 +30,10 @@ Sentences.prototype.getMetaData = function(sentence) {
                 this._meta.push({
                     word: word,
                     letter: word[x],
-                    letter_position: count,
+                    letter_position: x,
                     dom_position: 'position-' + count,
-                    isLetter: true
+                    isLetter: true,
+                    word_position: i
                 });
                 count++;
             }
@@ -40,7 +41,7 @@ Sentences.prototype.getMetaData = function(sentence) {
             this._meta.push({
                 word: "space",
                 letter: " ",
-                letter_position: count,
+                letter_position: 0,
                 dom_position: 'position-' + count,
                 isLetter: false
             });
