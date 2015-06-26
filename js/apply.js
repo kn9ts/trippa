@@ -99,6 +99,7 @@ $(function() {
     // Check the trace of user existing, if he/she logged in
     var isLoggedIn = LS.runQuery('TrippaUser');
     if (isLoggedIn) {
+        console.log("========================================")
         // If they had Disable the text area till the Facebook data has been pulled
         textArea.attr('disabled', true);
     }

@@ -33,12 +33,17 @@ window.fbAsyncInit = function() {
     $('#facebookButton').click(function(event) {
         event.preventDefault();
         console.log("BUTTON CLICKED");
-        // Try to prompt the user to login
-        Fb.tryAction('login');
         // If user exists, this is a logout request
-        if (LS.runQuery('TrippaUser')) {
+        user = LS.runQuery('TrippaUser');
+        if (user) {
             LS.runQuery('TrippaUser', false);
+            LS.flush();
+            Fb.logout();
+        } else {
+            // Try to prompt the user to login
+            Fb.tryAction('login');
         }
+
     }).css('color', function() {
         // dummy return
         return $(this).css("color");

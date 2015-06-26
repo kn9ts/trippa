@@ -147,7 +147,7 @@ Facebook.prototype.login = function(bool, cb) { // boolean, callback
                 $('.profile-pic').attr('src', 'http://lorempixel.com/g/200/200/cats').next().text('Are you a cat?!');
                 $('#facebookButton').toggleClass('button-dull').text('Log in');
                 // reload page
-                window.location.reload(false);
+                // window.location.reload(false);
                 // If we needed to pull the document from
                 // the web-server again (such as where the document contents
                 // change dynamically) we would pass the argument as 'true'.
