@@ -84,7 +84,9 @@ document.addEventListener('FacebookLoginComplete', function(data) {
 
 $(function() {
     var collectTypingData = [];
-    var countdown = new Timer('#time', 60);
+    // Shorter time on local machine to reduces development time
+    var TimeToAllocate = location.host.indexOf('localhost') > -1 ? 15 : 60;
+    var countdown = new Timer('#time', TimeToAllocate);
     var textArea = $('textarea');
     var wpm = $('#wpm');
     var typos = $('#typos');
@@ -189,16 +191,17 @@ $(function() {
             countdown.isActive = false;
             textArea.attr('disabled', true);
 
-            var words_typed = textArea.val();
+            // Cater for new line adds, should be spaces
+            var words_typed = textArea.val().replace(/\n/g, ' ');
             var trippa = new Trippa();
-
-            // Calculate WPM
-            var WPM = trippa.calculateWPM(words_typed, 60);
-            console.log(WPM);
-            wpm.html(WPM);
 
             var Sentence = appInstance.getSentenceInstance();
             console.log(Sentence);
+
+            // Calculate WPM
+            var WPM = trippa.calculateWPM(words_typed, Sentence.sentence);
+            console.log(WPM);
+            wpm.html(WPM);
 
             // Calculate Accuracy
             var Accuracy = trippa.calculateAccuracy(words_typed, Sentence.sentence);

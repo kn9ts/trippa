@@ -8,10 +8,32 @@ var Trippa = function(data) {
 }
 
 Trippa.prototype = {
-    calculateWPM: function(words_typed, time_taken) {
+    calculateWPM: function(words_typed, Sentence) {
+
+        // Split his sentence into an array
+        var wordsTyped = words_typed.split(/\s/g);
+        var givenSentence = Sentence;
+
+        // Extract the equivalent words from given sentence to words typed by user
+        var equivalentSentenceWords = givenSentence.split(/\s/g).splice(0, wordsTyped.length);
+
+        // Now collect the correct words typed
+        var correctWordsTyped = [];
+        for (var x = 0; x < wordsTyped.length; x++) {
+            // If the word typed matchs the given sentence's word position
+            if (wordsTyped[x] == equivalentSentenceWords[x]) {
+                correctWordsTyped.push(equivalentSentenceWords[x]);
+            }
+        }
+
+        // Turn the correct words back to a sentence
+        var correctWordsSentence = correctWordsTyped.join(' ');
+
         // WPM calculation
         // (((words_typed / 5) * 60) / time_taken)
-        return ((words_typed.length / 5) * 60) / parseInt(time_taken);
+        // time_taken == timeAllocated
+        var WPM = ((correctWordsSentence.length / 5) * 60) / this.timeAllocated;
+        return WPM;
     },
     calculateAccuracy: function(words_typed, Sentence) {
         var slicedSentence = Sentence.substr(0, words_typed.length);
@@ -42,7 +64,7 @@ Trippa.prototype = {
             if (words.indexOf(words_typed[x]) == -1) {
                 console.log(words[x]);
                 // look for finished typose
-                if(words_typed[x].length >= (words[x].length - (words_typed[x].length / 2))) {
+                if (words_typed[x].length >= (words[x].length - (words_typed[x].length / 2))) {
                     count++;
                 }
             }
