@@ -193,7 +193,7 @@ $(function() {
             textArea.attr('disabled', true);
 
             // Cater for new line adds, should be spaces
-            var words_typed = textArea.val().replace(/(\n|\s{2,})/g, ' ').trim();
+            var words_typed = textArea.val().replace(/(\n|\s{2,}|\t)/g, ' ').trim();
             var trippa = new Trippa();
 
             var Sentence = appInstance.getSentenceInstance();

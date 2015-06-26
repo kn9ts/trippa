@@ -35,18 +35,26 @@ Trippa.prototype = {
         var WPM = ((correctWordsSentence.length / 5) * 60) / this.timeAllocated;
         return WPM;
     },
-    calculateAccuracy: function(words_typed, Sentence) {
-        var slicedSentence = Sentence.substr(0, words_typed.length);
+    calculateAccuracy: function(words_typed, givenSentence) {
+        var wordsTyped = words_typed.split(/\s/g);
+        var equivalentSentenceWords = givenSentence.split(/\s/g).splice(0, wordsTyped.length);
 
-        var count = 0;
-        for (var x = 0; x < slicedSentence.length; x++) {
-            if (slicedSentence[x] !== words_typed[x]) {
-                console.log(slicedSentence[x], words_typed[x])
-                count++;
+        var letters_mistyped = [];
+        for (var x = 0; x < equivalentSentenceWords.length; x++) {
+            var word = equivalentSentenceWords[x],
+                userWord = wordsTyped[x];
+
+            console.log(" ------- comparing --------", word, userWord);
+            for (var i = 0; i < word.length; i++) {
+                if (userWord[i] !== undefined && word[i] != userWord[i]) {
+                    letters_mistyped.push(word[i]);
+                }
             }
         }
 
-        return Math.round(((slicedSentence.length - count) / slicedSentence.length) * 100) + '%';
+        var equivalentSentence = equivalentSentenceWords.join(' ');
+        console.log('Letters the user got typos on -- ', letters_mistyped, equivalentSentence);
+        return (100 - Math.round((letters_mistyped.length / equivalentSentence.length) * 100)) + '%';
     },
     calculateTypos: function(words_typed, Sentence) {
         var words = Sentence.sentence.split(/\s/g);
