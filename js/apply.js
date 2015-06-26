@@ -222,7 +222,7 @@ $(function() {
             // Leaderboard.push(DATA);
 
             // check to see if the user is logged in
-            if (userExists) {
+            if (userExists && textArea.val().length > 0) {
                 // check to see if the user already has a score card saved
                 if (user.scoreId) {
                     // if yes, fetch & update it
