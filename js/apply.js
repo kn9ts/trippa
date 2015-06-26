@@ -115,16 +115,16 @@ $(function() {
         $('.overlay').css('display', 'none');
     });
 
-    textArea.keyup(function(ev) {
-        var el = this;
+    var TypingProgress = function(ev) {
+        // var el = this;
         if (collectTypingData.length === 0 && !countdown.isActive) {
-            console.log("========== STARTED ===========", ev.which);
+            // console.log("========== STARTED ===========", ev.which);
             reset_time.toggleClass('button-error');
             countdown.startCountDown();
         }
 
         // get what he/she has typed
-        var typed = $(el).val();
+        var typed = textArea.val();
         var words_typed = typed.split(/\s/g);
 
         // get the sentence given to be typed
@@ -163,7 +163,19 @@ $(function() {
             }
         }
 
-    });
+    }
+
+    /*
+        *--------------------- TROTTLING ----------------------*
+        Creates and returns a new, throttled version of the passed function, that, when invoked repeatedly, will only actually call the original function at most once per every wait milliseconds. Useful for rate-limiting events that occur faster than you can keep up with.
+
+        By default, throttle will execute the function as soon as you call it for the first time, and, if you call it again any number of times during the wait period, as soon as that period is over. If you'd like to disable the leading-edge call, pass {leading: false}, and if you'd like to disable the execution on the trailing-edge, pass
+    */
+
+    // Function should be invoked 3 times per second
+    TypingProgress = _.throttle(TypingProgress, 333);
+
+    textArea.keyup(TypingProgress);
 
     // Disabled copy/paste
     textArea.on('copy paste', function(e) {
