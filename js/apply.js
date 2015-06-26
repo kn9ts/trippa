@@ -100,7 +100,7 @@ $(function() {
     var isLoggedIn = LS.runQuery('TrippaUser');
     if (isLoggedIn) {
         console.log("========================================")
-        // If they had Disable the text area till the Facebook data has been pulled
+            // If they had Disable the text area till the Facebook data has been pulled
         textArea.attr('disabled', true);
     }
 
@@ -193,7 +193,7 @@ $(function() {
             textArea.attr('disabled', true);
 
             // Cater for new line adds, should be spaces
-            var words_typed = textArea.val().replace(/\n/g, ' ');
+            var words_typed = textArea.val().replace(/(\n|\s{2,})/g, ' ').trim();
             var trippa = new Trippa();
 
             var Sentence = appInstance.getSentenceInstance();
